@@ -20,7 +20,6 @@ const Notes = () => {
 	};
 
 	const handleClick = (e) => {
-		console.log("updatingnotes", note);
 		editNote(note.id, note.etitle, note.edescription, note.etag);
 		refClose.current.click();
 	};
@@ -49,13 +48,13 @@ const Notes = () => {
 									<label htmlFor="etitle" className="form-label">
 										Title
 									</label>
-									<input type="text" className="form-control" value={note.etitle} id="etitle" name="etitle" aria-describedby="emailHelp" onChange={onChange} />
+									<input type="text" className="form-control" value={note.etitle} id="etitle" name="etitle" aria-describedby="emailHelp" onChange={onChange} minLength={3} required />
 								</div>
 								<div className="mb-3">
 									<label htmlFor="edescription" className="form-label">
 										Description
 									</label>
-									<input type="text" className="form-control" value={note.edescription} id="edescription" name="edescription" onChange={onChange} />
+									<input type="text" className="form-control" value={note.edescription} id="edescription" name="edescription" onChange={onChange} minLength={5} required />
 								</div>
 								<div className="mb-3">
 									<label htmlFor="etag" className="form-label">
@@ -66,7 +65,7 @@ const Notes = () => {
 							</form>
 						</div>
 						<div className="modal-footer">
-							<button type="button" onClick={handleClick} className="btn btn-primary">
+							<button type="button" onClick={handleClick} className="btn btn-primary" disabled={note.etitle.length < 3 || note.edescription.length < 5}>
 								Update Note
 							</button>
 							<button type="button" className="btn btn-danger" ref={refClose} data-bs-dismiss="modal">
@@ -78,6 +77,11 @@ const Notes = () => {
 			</div>
 			<div className="row container fluid my-2">
 				<h2>Your Notes</h2>
+				{notes.length === 0 && (
+					<div className="container-fluid my-2">
+						<h5 className="color-gray">Add notes to display here</h5>
+					</div>
+				)}
 				{notes.map((note) => {
 					return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
 				})}
