@@ -46,7 +46,7 @@ router.post("/createuser", [body("name", "Enter valid name").isLength({ min: 2 }
 	}
 });
 
-//ROUTE 2 : Aurthenticate a user using: POST "/api/auth/login" no login required
+//ROUTE 2 : Authenticate a user using: POST "/api/auth/login" no login required
 router.post("/login", [body("email", "Enter valid email").isEmail(), body("password", "Password can not be blank").exists()], async (req, res) => {
 	//If there are errors, return bad request
 	const errors = validationResult(req);
