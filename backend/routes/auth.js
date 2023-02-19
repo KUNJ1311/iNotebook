@@ -11,16 +11,17 @@ const JWT_SECRET = "Kunj@signed_by_kunj1311";
 //ROUTE 1 : Create a User using: POST "/api/auth/createuser". No login required
 router.post("/createuser", [body("name", "Enter valid name").isLength({ min: 2 }), body("email", "Enter valid email").isEmail(), body("password", "Password must be atleast 8 characters").isLength({ min: 8 })], async (req, res) => {
 	//If there are errors, return bad request
+	let success = false;
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(400).json({ success, errors: errors.array() });
 	}
 
 	//Check whether the user with this email exists already
 	try {
 		let user = await User.findOne({ email: req.body.email });
 		if (user) {
-			return res.status(400).json({ error: "Sorry a user with this email is already exists" });
+			return res.status(400).json({ success, error: "Sorry a user with this email is already exists" });
 		}
 
 		//Create new users
@@ -38,8 +39,8 @@ router.post("/createuser", [body("name", "Enter valid name").isLength({ min: 2 }
 			},
 		};
 		const authtoken = jwt.sign(data, JWT_SECRET);
-
-		res.json({ authtoken });
+		let success = true;
+		res.json({ success, authtoken });
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send("Internal Server Error");
