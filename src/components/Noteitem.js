@@ -16,7 +16,7 @@ const Noteitem = (props) => {
 								className="my-button mx-1"
 								onClick={() => {
 									deleteNote(note._id);
-									props.showAlert("Deleted successfully", "success");
+									props.showAlert("Deleted Successfully", "success");
 								}}
 							>
 								<i className="fa-regular fa-trash-can after-hover"></i>

@@ -45,3 +45,16 @@ i {
 	box-shadow: 0 7px 12px -3px rgba(0, 0, 0, 0.4);
 	border: 2px solid rgb(163, 163, 163);
 }
+@media screen and (max-width: 700px) {
+	.remove-px {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+}
+.sticky-onnav {
+	overflow: hidden;
+	position: fixed;
+	top: 56px;
+	z-index: 10;
+	width: 100%;
+}
