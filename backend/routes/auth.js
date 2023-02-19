@@ -21,6 +21,7 @@ router.post("/createuser", [body("name", "Enter valid name").isLength({ min: 2 }
 	try {
 		let user = await User.findOne({ email: req.body.email });
 		if (user) {
+			let success = false;
 			return res.status(400).json({ success, error: "Sorry a user with this email is already exists" });
 		}
 
