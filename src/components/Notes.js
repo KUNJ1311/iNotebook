@@ -2,12 +2,13 @@ import { React, useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../context/notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./Noteitem";
-const Notes = () => {
+const Notes = (props) => {
 	const context = useContext(noteContext);
 	const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
 	const { notes, getNotes, editNote } = context;
 	const ref = useRef(null);
 	const refClose = useRef(null);
+	const { showAlert } = props;
 
 	useEffect(() => {
 		getNotes();
@@ -22,6 +23,7 @@ const Notes = () => {
 	const handleClick = (e) => {
 		editNote(note.id, note.etitle, note.edescription, note.etag);
 		refClose.current.click();
+		props.showAlert("Updated successfully", "success");
 	};
 
 	const onChange = (e) => {
@@ -30,7 +32,7 @@ const Notes = () => {
 
 	return (
 		<>
-			<AddNote />
+			<AddNote showAlert={showAlert} />
 			<button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" ref={ref} data-bs-target="#staticBackdrop">
 				Launch static backdrop modal
 			</button>
@@ -83,7 +85,7 @@ const Notes = () => {
 					</div>
 				)}
 				{notes.map((note) => {
-					return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
+					return <NoteItem key={note._id} updateNote={updateNote} showAlert={showAlert} note={note} />;
 				})}
 			</div>
 		</>
