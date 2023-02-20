@@ -17,5 +17,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`iNotebook backend listening at http://192.168.114.101:${port}`);
+	console.log(`iNotebook backend listening at http://localhost:${port}`);
 });
