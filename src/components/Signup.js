@@ -28,7 +28,7 @@ const Signup = (props) => {
 	};
 	return (
 		<div className="container remove-px">
-			<h2 className="text-center my-2">Login to continue to iNotebook</h2>
+			<h2 className="text-center my-2">Create an account to use iNotebook</h2>
 			<form onSubmit={handleSubmit} className="container remove-px">
 				<div className="mb-3">
 					<label forhtml="name" className="form-label">
